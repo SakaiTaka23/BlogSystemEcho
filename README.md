@@ -33,16 +33,16 @@
 
 
 
-| articles |               |
-| -------- | ------------- |
-| id       | id            |
-| title    | string,unique |
-| body     | text          |
-| pubdate  | date(Y-m-d)   |
+| articles   |                 |
+| ---------- | --------------- |
+| id         | id              |
+| title      | char(20),unique |
+| body       | text            |
+| created_at | date(Y-m-d)     |
 
 
 
-| articles_tag |      |
+| article_tags |      |
 | ------------ | ---- |
 | id           | id   |
 | article_id   | int  |
@@ -50,10 +50,10 @@
 
 
 
-| tag  |        |
-| ---- | ------ |
-| id   | id     |
-| name | string |
+| tag  |          |
+| ---- | -------- |
+| id   | id       |
+| name | char(20) |
 
 
 
