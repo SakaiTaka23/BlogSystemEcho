@@ -1,5 +1,4 @@
 FROM node:alpine
 
-RUN apk update && \
-    npm install -g npm && \
+RUN npm install -g \
     npm install -g npm install tailwindcss
