@@ -19,6 +19,10 @@
 
 ## DB
 
+* dbの作成はdocker build時に行うが各テーブル、カラムはgormに任せる
+
+
+
 | admin    |                           |
 | -------- | ------------------------- |
 | id       | int,primary,autoincrement |
