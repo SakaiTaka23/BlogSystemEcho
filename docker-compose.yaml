@@ -30,6 +30,8 @@
     working_dir: /go/src/app
     tty: true
     command: fresh
+    depends_on:
+      - db
 
   nodejs:
     build:
