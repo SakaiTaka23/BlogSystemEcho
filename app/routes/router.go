@@ -1,11 +1,12 @@
 package routes
 
 import (
+	"app/handler"
+
 	"crypto/subtle"
 	"html/template"
 	"io"
 	"net/http"
-	"os"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
@@ -27,8 +28,8 @@ func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c 
 
 func Routes() {
 	_ = godotenv.Load("../.env")
-	ADMIN_NAME := os.Getenv("ADMIN_NAME")
-	ADMIN_PASS := os.Getenv("ADMIN_PASS")
+	// ADMIN_NAME := os.Getenv("ADMIN_NAME")
+	// ADMIN_PASS := os.Getenv("ADMIN_PASS")
 
 	e := echo.New()
 
@@ -47,16 +48,14 @@ func Routes() {
 	g := e.Group("/admin")
 	g.Use(middleware.BasicAuth(func(username, password string, c echo.Context) (bool, error) {
 		// Be careful to use constant time comparison to prevent timing attacks
-		if subtle.ConstantTimeCompare([]byte(username), []byte(ADMIN_NAME)) == 1 &&
-			subtle.ConstantTimeCompare([]byte(password), []byte(ADMIN_PASS)) == 1 {
+		if subtle.ConstantTimeCompare([]byte(username), []byte("admin")) == 1 &&
+			subtle.ConstantTimeCompare([]byte(password), []byte("pass")) == 1 {
 			return true, nil
 		}
 		return false, nil
 	}))
 
-	g.GET("/post", func(c echo.Context) error {
-		return c.String(http.StatusOK, "/post GET")
-	})
+	g.GET("/post", handler.PostForm)
 
 	g.POST("/post", func(c echo.Context) error {
 		return c.String(http.StatusOK, "/post POST")
