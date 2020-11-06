@@ -1,9 +1,16 @@
 package handler
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo"
 )
 
 func PostForm(c echo.Context) error {
-	return c.File("admin/post-form.html")
+	data := struct {
+		Title string
+	}{
+		Title: "PostForm",
+	}
+	return c.Render(http.StatusOK, "admin/PostForm", data)
 }

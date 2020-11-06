@@ -2,7 +2,6 @@ package routes
 
 import (
 	"app/handler"
-
 	"crypto/subtle"
 	"html/template"
 	"io"
@@ -27,9 +26,11 @@ func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c 
 }
 
 func Routes() {
-	_ = godotenv.Load("../.env")
+	_ = godotenv.Load(".././.env")
 	// ADMIN_NAME := os.Getenv("ADMIN_NAME")
 	// ADMIN_PASS := os.Getenv("ADMIN_PASS")
+	// fmt.Print("admin_name")
+	// fmt.Print(ADMIN_NAME, ADMIN_PASS)
 
 	e := echo.New()
 
