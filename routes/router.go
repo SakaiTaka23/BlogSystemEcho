@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"app/handler"
 	"crypto/subtle"
 	"html/template"
 	"io"
@@ -11,6 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/SakaiTaka23/handler"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
