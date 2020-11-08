@@ -12,5 +12,5 @@ func PostForm(c echo.Context) error {
 	}{
 		Title: "PostForm",
 	}
-	return c.Render(http.StatusOK, "admin/PostForm", data)
+	return c.Render(http.StatusOK, "PostForm", data)
 }

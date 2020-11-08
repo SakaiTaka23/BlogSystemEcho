@@ -5,7 +5,11 @@ import (
 	"crypto/subtle"
 	"html/template"
 	"io"
+	"log"
 	"net/http"
+	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo"
@@ -25,6 +29,26 @@ func (t *TemplateRenderer) Render(w io.Writer, name string, data interface{}, c 
 	return t.templates.ExecuteTemplate(w, name, data)
 }
 
+func ParseTemplates() *template.Template {
+	templ := template.New("")
+	err := filepath.Walk("./views", func(path string, info os.FileInfo, err error) error {
+		if strings.Contains(path, ".html") {
+			_, err = templ.ParseFiles(path)
+			if err != nil {
+				log.Println(err)
+			}
+		}
+
+		return err
+	})
+
+	if err != nil {
+		panic(err)
+	}
+
+	return templ
+}
+
 func Routes() {
 	_ = godotenv.Load(".././.env")
 	// ADMIN_NAME := os.Getenv("ADMIN_NAME")
@@ -34,10 +58,12 @@ func Routes() {
 
 	e := echo.New()
 
+	e.Pre(middleware.RemoveTrailingSlash())
+
 	e.Static("/", "assets")
 
 	renderer := &TemplateRenderer{
-		templates: template.Must(template.ParseGlob("views/*.html")),
+		templates: ParseTemplates(),
 	}
 	e.Renderer = renderer
 
